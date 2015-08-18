@@ -12,9 +12,8 @@ var opts = {
 
 app.post('/', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
-    console.log(req.body.markdown);
     var markdown = new UnexpectedMarkdown(req.body.markdown);
-    markdown.toHtml({ }, function (err, html) {
+    markdown.toHtml({ preferredWidth: 75 }, function (err, html) {
         res.send(html);
     });
 });

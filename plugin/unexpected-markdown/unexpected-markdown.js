@@ -5,18 +5,14 @@
  */
 (function( root, factory ) {
     if( typeof exports === 'object' ) {
-        module.exports = factory( require( './marked' ) );
+        module.exports = factory();
     }
     else {
         // Browser globals (root is window)
-        root.RevealMarkdown = factory( root.marked );
+        root.RevealMarkdown = factory();
         root.RevealMarkdown.initialize();
     }
 }( this, function( marked ) {
-
-    if( typeof marked === 'undefined' ) {
-        throw 'The reveal.js Markdown plugin requires marked to be loaded';
-    }
 
     if( typeof hljs !== 'undefined' ) {
         marked.setOptions({
@@ -26,14 +22,15 @@
         });
     }
 
-    var DEFAULT_SLIDE_SEPARATOR = '^\r?\n---\r?\n$',
+    var DEFAULT_SLIDE_SEPARATOR = '^\r?\n===\r?\n$',
+        DEFAULT_VERTICAL_SLIDE_SEPARATOR = '^\r?\n---\r?\n$'
         DEFAULT_NOTES_SEPARATOR = 'note:',
         DEFAULT_ELEMENT_ATTRIBUTES_SEPARATOR = '\\\.element\\\s*?(.+?)$',
         DEFAULT_SLIDE_ATTRIBUTES_SEPARATOR = '\\\.slide:\\\s*?(\\\S.+?)$';
 
     function markdownToHtml(markdown, cb) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST","http://localhost:1949",true);
+        xhr.open("POST","http://localhost:1949",false);
         xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhr.onload = function() {
             var status = xhr.status;
@@ -109,6 +106,7 @@
 
         options = options || {};
         options.separator = options.separator || DEFAULT_SLIDE_SEPARATOR;
+        options.verticalSeparator = options.verticalSeparator || DEFAULT_VERTICAL_SLIDE_SEPARATOR;
         options.notesSeparator = options.notesSeparator || DEFAULT_NOTES_SEPARATOR;
         options.attributes = options.attributes || '';
 
@@ -146,10 +144,7 @@
         });
 
         markdown = markdown.replace(new RegExp(options.separator, 'mg'), '<!-- unexpected-markdown-slide -->\n');
-
-        if (options.verticalSeparator) {
-            markdown = markdown.replace(new RegExp(options.verticalSeparator, 'mg'), '<!-- unexpected-markdown-vertical-slide -->\n');
-        }
+        markdown = markdown.replace(new RegExp(options.verticalSeparator, 'mg'), '<!-- unexpected-markdown-vertical-slide -->\n');
 
         // var notes = section.querySelector( 'aside.notes' );
 
