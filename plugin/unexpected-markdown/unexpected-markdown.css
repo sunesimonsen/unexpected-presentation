@@ -1,0 +1,25 @@
+.reveal section .output,
+.reveal section .code {
+    color: black;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.55em;
+    white-space: nowrap;
+    line-height: 1.45;
+    margin: 0.5em 0;
+    padding: 16px;
+    overflow-x: auto;
+    text-align: left;
+    max-height: 400px;
+}
+
+.reveal section .code {
+  background-color: #f7f7f7;
+}
+.reveal section .output {
+  background-color: #f3f3f3;
+}
+
+.reveal section .code + .output {
+    border-top: thin solid #ddd;
+    margin-top: -0.5em;
+}
