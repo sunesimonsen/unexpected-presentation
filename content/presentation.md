@@ -22,7 +22,7 @@ Many plugins that cover most functionality.
 
 ---
 
-Great documentation!
+We have great documentation!
 
 http://unexpected.js.org
 
@@ -137,14 +137,15 @@ it('saves a magicpen image with correct metadata', function () {
 ...and they compose:
 
 ```js#evaluate:false
-it('produces a smaller file when run with -o7 on a suboptimal PNG', () => {
+it ('produces the correct png output', function () {
   return expect(
-    fs.createReadStream(Path.resolve(__dirname, 'suboptimal.png')),
-    'when piped through',
-    new OptiPng(['-o7']),
-    'to yield output satisfying', function (optiPngBuffer) {
-      expect(optiPngBuffer.length, 'to be within', 0, 152);
-    }
+    createPngImageStream('bar.tiff'),
+    'to yield output satisfying',
+    expect.it('to resemble', 'bar.png', {
+      mismatchPercentage: expect.it('to be less than', 10)
+    }).and('to have metadata satisfying', {
+      format: 'PNG'
+    })
   );
 });
 ```
@@ -168,14 +169,13 @@ expect(obj, 'to have keys', 'foo', 'bar');
 This is especially important when you are doing more complicated stuff:
 
 ```js#evaluate:false
-expect(
-  fs.createReadStream('foo.png'),
-  'to yield output satisfying',
-  expect.it('to resemble', 'bar.png', {
-    mismatchPercentage: expect.it('to be less than', 10)
-  }).and('to have metadata satisfying', {
-    format: 'PNG'
-  })
+return expect(
+  fs.createReadStream('suboptimal.png'),
+  'when piped through',
+  new OptiPng(['-o7']),
+  'to yield output satisfying', function (optiPngBuffer) {
+    expect(optiPngBuffer.length, 'to be within', 0, 152);
+  }
 );
 ```
 
