@@ -64,13 +64,12 @@ expect([ 0, 1, 2, 4, 5], 'to equal', [ 1, 2, 3, 4]);
 
 ```output
 expected [ 0, 1, 2, 4, 5 ] to equal [ 1, 2, 3, 4 ]
- 
+
 [
   0, // should be removed
   1,
   2,
-  // missing 
-  3
+  // missing 3
   4,
   5 // should be removed
 ]
@@ -91,9 +90,9 @@ expect(
 ```output
 expected Buffer([0x77, 0x61, 0x74, 0x3F])
 to equal Buffer([0x77, 0x68, 0x61, 0x74, 0x3F])
- 
-- 77 61 74 3F                                      │wat?│
-+ 77 68 61 74 3F                                   │what?│
+
+-77 61 74 3F                                      │wat?│
++77 68 61 74 3F                                   │what?│
 ```
 
 ---
@@ -106,11 +105,12 @@ expect(sune, 'to satisfy', { name: 'Sune Simonsen', age: 35 });
 ```
 
 ```output
-expected { name: 'Sune Simonsen' }
+expected { name: 'Sune Simonsen', gender: 'male' }
 to satisfy { name: 'Sune Simonsen', age: 35 }
- 
+
 {
-  name: 'Sune Simonsen', 
+  name: 'Sune Simonsen',
+  gender: 'male',
   age: undefined // should equal 35
 }
 ```
