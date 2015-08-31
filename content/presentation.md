@@ -75,6 +75,8 @@ expected [ 0, 1, 2, 4, 5 ] to equal [ 1, 2, 3, 4 ]
 ]
 ```
 
+Note: colors in the console and the browser from mocha v2.3.0
+
 ---
 
 ...more awesome output
@@ -155,6 +157,13 @@ Note: show some async output http://localhost:3000/site-build/assertions/string/
 ===
 
 ## Syntax matters
+
+before_software_can_be_reusable_it_first_has_to_be_usable
+before.software.can.be.reusable.it.first.has.to.be.usable
+beforeSoftwareCanBeReusableItFirstHasToBeUsable
+Before software can be reusable it first has to be usable.
+
+– Ralph Johnson.
 
 ---
 
