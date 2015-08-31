@@ -119,6 +119,29 @@ to satisfy { name: 'Sune Simonsen', age: 35 }
 
 ---
 
+Match your object hierarchy against a specification:
+
+```js
+expect({ name: 'Sune Simonsen', gender: 'mail', age: 35 }, 'to satisfy', {
+  name: /.+/, age: expect.it('to be positive'), gender: /female|male/
+});
+```
+
+```output
+expected { name: 'Sune Simonsen', gender: 'male' }
+to satisfy { name: 'Sune Simonsen', age: 35 }
+
+{
+  name: 'Sune Simonsen',
+  gender: 'male',
+  age: undefined // should equal 35
+}
+```
+
+Note: this of cause nests arbitrarily.
+
+---
+
 Asynchronous assertions:
 
 ```js#evaluate:false
@@ -133,6 +156,8 @@ it('saves a magicpen image with correct metadata', function () {
   });
 });
 ```
+
+http://unexpected.js.org/unexpected-image/
 
 ---
 
@@ -152,7 +177,9 @@ it ('produces the correct png output', function () {
 });
 ```
 
-Note: show some async output http://localhost:3000/site-build/assertions/string/when-piped-through/
+http://unexpected.js.org/unexpected-stream/
+
+Note: show some async output http://unexpected.js.org/unexpected-stream/assertions/array/when-piped-through/
 
 ===
 
