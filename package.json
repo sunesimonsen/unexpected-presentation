@@ -23,12 +23,14 @@
   },
   "dependencies": {
     "body-parser": "1.13.3",
+    "expect.js": "^0.3.1",
     "express": "~2.5.9",
+    "lodash": "^3.10.1",
     "mustache": "~0.7.2",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.1",
-    "unexpected": "9.6.0",
-    "unexpected-markdown": "1.1.1"
+    "unexpected": "^9.8.1",
+    "unexpected-markdown": "^1.1.2"
   },
   "devDependencies": {
     "grunt-contrib-qunit": "~0.5.2",
