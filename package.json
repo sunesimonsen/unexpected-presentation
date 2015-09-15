@@ -29,7 +29,7 @@
     "mustache": "~0.7.2",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.1",
-    "unexpected": "^9.8.1",
+    "unexpected": "9.11.1",
     "unexpected-markdown": "^1.1.2"
   },
   "devDependencies": {

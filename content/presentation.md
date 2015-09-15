@@ -14,7 +14,10 @@ Starting to be used by other companies.
 
 ---
 
-A small by very active community.
+A small by very active and helpful community.
+
+Meet us on [Gitter](https://gitter.im/unexpectedjs/unexpected) or
+[Github](https://github.com/unexpectedjs/unexpected).
 
 ---
 
@@ -37,6 +40,8 @@ Driving out the implementation.
 ---
 
 Fast feedback.
+
+Note: Fast enough that you can run several thousand test a second.
 
 ---
 
@@ -62,16 +67,15 @@ Context is important
 
 ```js
 function Person(firstName, lastName) {
-  this.firstName = firstName;
-  this.lastName = lastName;
+  this.names = Array.prototype.slice.call(arguments);
   Object.defineProperty(this, 'fullName', {
     get: function () {
-      return this.firstName + ' ' + this.lastName;
+      return this.names.join(' ');
     }
   });
 }
 
-var sune = new Person('Sune Sloth', 'Simonsen');
+var sune = new Person('Sune', 'Sloth', 'Simonsen');
 ```
 
 ---
@@ -96,88 +100,6 @@ expect(sune, 'to satisfy', { fullName: 'Simonsen, Sune Sloth' });
 ```output
 sdf
 ```
-
-===
-
-```js
-var _ = require('lodash');
-function Person(name) {
-  this.name = name;
-}
-var persons = [
-  new Person('Andreas Lind'),
-  new Person('Sune Simonsen')
-];
-var personIndex = _.groupBy(persons, function (person) {
-  return person.name[0].toLowerCase();
-});
-```
-
----
-
-```js
-var assert = require('assert');
-assert.deepEqual(personIndex, {
-  l: [ new Person('Andreas Lind') ],
-  s: [ new Person('Sune Simonsen') ]
-});
-```
-
-```output
-false == true
-```
-
----
-
-```js
-var expectjs = require('expect.js');
-expectjs(personIndex).to.eql({
-  l: [ new Person('Andreas Lind') ],
-  s: [ new Person('Sune Simonsen') ]
-});
-```
-
-```output
-expected [ 0, 2, 4, 6, 8, 10 ] to have a length of 5 but got 6
-```
-
----
-
-```js
-expect(personIndex, 'to equal', {
-  l: [ new Person('Andreas Lind') ],
-  s: [ new Person('Sune Simonsen') ]
-});
-```
-
-```output
-fsd
-```
-
-<!--
-var sune = {
-  name: 'Sune Simonsen',
-  interests: ['kayaking', 'programming']
-};
-
-assert(sune.name === 'Sune Simonsen');
-
-assert(sune.name === 'Sune Simonsen', 'Name did not match');
-
-betterAssert(sune.name === 'Sune Simonsen');
-
-var expectjs = require('expect.js');
-expectjs(sune).to.have.property('name', 'Sune Simonsen');
-
-expect(sune, 'to satisfy', { name: 'Sune Simonsen' });
-expect(sune, 'to satisfy', {
-  name: 'Sune Simonsen',
-  interests: expect.it('not to contain', 'management');
-});
--->
-
-
----
 
 ===
 
@@ -356,11 +278,13 @@ Unknown assertion 'to not be', did you mean: 'not to be'
 <!--
 
 * Async assertions with composability
-* Colors in the console and the browser from mocha v3.0.0
+* Colors in the console and the browser from mocha v2.3.0
 * extensibily - everything in unexpected is build from the same tool provided to
 you
 * assertions scoped by type
 * planing to support real polymorphism
+
+* Maybe moment case study
 
 -->
 
