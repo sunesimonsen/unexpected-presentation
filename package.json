@@ -7,7 +7,7 @@
   "main": "js/reveal.js",
   "scripts": {
     "test": "grunt test",
-    "start": ""
+    "start": "UNEXPECTED_DEPTH=4 node plugin/unexpected-markdown/server.js"
   },
   "author": {
     "name": "Hakim El Hattab",

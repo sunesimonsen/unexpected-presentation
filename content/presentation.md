@@ -81,36 +81,6 @@ Unknown assertion 'to not be', did you mean: 'not to be'
 
 ===
 
-## What is the purpose of testing
-
----
-
-Driving out the implementation.
-
----
-
-Fast feedback.
-
-Note: Fast enough that you can run several thousand test a second.
-
----
-
-Feeling confident about sub-modules.
-
----
-
-Safety when refactoring.
-
----
-
-API documentation.
-
-===
-
-## How can Unexpected make testing better
-
-===
-
 ## Context is important
 
 ---
@@ -234,7 +204,7 @@ to satisfy { name: 'Sune Simonsen', age: 35 }
 ```
 
 Note: we can state multiple requirements for an object
-Note: that that is no requirement for gender
+Note: notice that is no requirement for gender
 
 ---
 

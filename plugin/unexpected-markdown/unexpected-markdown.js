@@ -24,7 +24,7 @@
 
     var DEFAULT_SLIDE_SEPARATOR = '^\r?\n===\r?\n$',
         DEFAULT_VERTICAL_SLIDE_SEPARATOR = '^\r?\n---\r?\n$'
-        DEFAULT_NOTES_SEPARATOR = 'note:',
+        DEFAULT_NOTES_SEPARATOR = 'Note:',
         DEFAULT_ELEMENT_ATTRIBUTES_SEPARATOR = '\\\.element\\\s*?(.+?)$',
         DEFAULT_SLIDE_ATTRIBUTES_SEPARATOR = '\\\.slide:\\\s*?(\\\S.+?)$';
 
@@ -138,8 +138,8 @@
     function slidify( markdown, options, target ) {
         options = getSlidifyOptions( options );
 
-
-        markdown = markdown.replace(/^Note:(.*?)\n\n/gm, function ($0, $1) {
+      var noteRegex = new RegExp( options.notesSeparator + '(.*?)\n', 'mg' );
+        markdown = markdown.replace(noteRegex, function ($0, $1) {
             return '<aside class="notes">' + $1.trim() + '</aside>\n\n';
         });
 
