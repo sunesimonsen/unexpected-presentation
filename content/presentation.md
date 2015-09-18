@@ -4,6 +4,8 @@
 
 Started in 2013 as an experiment.
 
+Developed heavily ever since.
+
 ---
 
 Used by One.com from v1.0.4 and is used for all JavaScript testing now.
@@ -28,6 +30,54 @@ Many plugins that cover most functionality.
 We have great documentation!
 
 http://unexpected.js.org
+
+===
+
+## Syntax matters
+
+before_software_can_be_reusable_it_first_has_to_be_usable<br>
+before.software.can.be.reusable.it.first.has.to.be.usable<br>
+beforeSoftwareCanBeReusableItFirstHasToBeUsable<br>
+Before software can be reusable it first has to be usable.
+
+– Ralph Johnson.
+
+Note: let's just get the syntax out of the way before we are get started.
+
+---
+
+Assertions are just text - feel free to express yourself.
+
+```js#evaluate:false
+expect(obj, 'to have keys', 'foo', 'bar');
+```
+
+---
+
+This is especially important when you are doing more complicated stuff:
+
+```js#evaluate:false
+return expect(
+  fs.createReadStream('suboptimal.png'),
+  'when piped through',
+  new OptiPng(['-o7']),
+  'to yield output satisfying', function (optiPngBuffer) {
+    expect(optiPngBuffer.length, 'to be within', 0, 152);
+  }
+);
+```
+
+---
+
+A nice side-effect of using strings:
+
+```js
+expect(42, 'to not be', 24);
+```
+
+```output
+Unknown assertion 'to not be', did you mean: 'not to be'
+```
 
 ===
 
@@ -61,7 +111,7 @@ API documentation.
 
 ===
 
-Context is important
+## Context is important
 
 ---
 
@@ -81,29 +131,26 @@ var sune = new Person('Sune', 'Sloth', 'Simonsen');
 ---
 
 ```js
-var expectjs = require('expect.js');
-expectjs(sune.fullName).to.eql('Simonsen, Sune Sloth');
-```
-
-```output
-sdf
-```
-
-<img src="content/expectjs-diff.png" alt="expect.js diff">
-
----
-
-```js
 expect(sune, 'to satisfy', { fullName: 'Simonsen, Sune Sloth' });
 ```
 
 ```output
-sdf
+expected Person({ names: [ 'Sune', 'Sloth', 'Simonsen' ] })
+to satisfy { fullName: 'Simonsen, Sune Sloth' }
+ 
+Person({
+  names: [ 'Sune', 'Sloth', 'Simonsen' ],
+  fullName: 'Sune Sloth Simonsen' // should equal 'Simonsen, Sune Sloth'
+                                  // - Sune Sloth Simonsen
+                                  // + Simonsen, Sune Sloth
+})
 ```
 
 ===
 
-Awesome output
+## Being precise makes a difference
+
+---
 
 ```js
 expect([ 0, 1, 2, 4, 5], 'to equal', [ 1, 2, 3, 4]);
@@ -126,7 +173,7 @@ Note: colors in the console and the browser from mocha v2.3.0
 
 ---
 
-...more awesome output
+We even diff buffers:
 
 ```js
 expect(
@@ -144,13 +191,35 @@ to equal Buffer([0x77, 0x68, 0x61, 0x74, 0x3F])
 +77 68 61 74 3F                                   │what?│
 ```
 
+Note: notice that we just use 'to equal'.
+
+===
+
+## Invalidate best practices
+
 ---
 
-Assert on sub-trees of a object hierarchy: 
+> There should only be one assertion per test!
+
+
+---
+
+> A single assert per unit test is a great way to test the reader's ability to
+> scroll up and down.
+
+Note: Not everyone agrees
+
+---
+
+> A test should be concise and readable.
+
+---
+
+Assert on sub-trees of a object hierarchy:
 
 ```js
-var sune = { name: 'Sune Simonsen', gender: 'male' };
-expect(sune, 'to satisfy', { name: 'Sune Simonsen', age: 35 });
+var sune = { names: ['Sune', 'Simonsen'], gender: 'male' };
+expect(sune, 'to satisfy', { names: ['Sune', 'Simonsen'], age: 35 });
 ```
 
 ```output
@@ -158,11 +227,14 @@ expected { name: 'Sune Simonsen', gender: 'male' }
 to satisfy { name: 'Sune Simonsen', age: 35 }
 
 {
-  name: 'Sune Simonsen',
+  names: ['Sune', 'Simonsen'],
   gender: 'male',
   age: undefined // should equal 35
 }
 ```
+
+Note: we can state multiple requirements for an object
+Note: that that is no requirement for gender
 
 ---
 
@@ -186,6 +258,10 @@ to satisfy { name: 'Sune Simonsen', age: 35 }
 ```
 
 Note: this of cause nests arbitrarily.
+
+===
+
+## The world is not sequential
 
 ---
 
@@ -230,55 +306,74 @@ Note: show some async output http://unexpected.js.org/unexpected-stream/assertio
 
 ===
 
-## Syntax matters
-
-before_software_can_be_reusable_it_first_has_to_be_usable
-before.software.can.be.reusable.it.first.has.to.be.usable
-beforeSoftwareCanBeReusableItFirstHasToBeUsable
-Before software can be reusable it first has to be usable.
-
-– Ralph Johnson.
+## Plugins
 
 ---
 
-Assertions are just text - feel free to express yourself.
-
-```js#evaluate:false
-expect(obj, 'to have keys', 'foo', 'bar');
-```
+### Testing with fakes
 
 ---
-
-This is especially important when you are doing more complicated stuff:
-
-```js#evaluate:false
-return expect(
-  fs.createReadStream('suboptimal.png'),
-  'when piped through',
-  new OptiPng(['-o7']),
-  'to yield output satisfying', function (optiPngBuffer) {
-    expect(optiPngBuffer.length, 'to be within', 0, 152);
-  }
-);
-```
-
----
-
-A nice side effect of using strings:
 
 ```js
-expect(42, 'to not be', 24);
+function Account(amount) {
+  var that = this;
+  that.deposit = function (amount) { /*...*/ };
+  that.withdraw = function (amount) { /*...*/ };
+  that.transferTo = function (amount, currency, destinationAccount) {
+    that.withdraw(amount);
+    destinationAccount.deposit(amount);
+  };
+}
 ```
 
+---
+
+```js
+var srcAccount = new Account();
+var destAccount = new Account();
+
+var sinon = require('sinon');
+sinon.spy(srcAccount, 'withdraw');
+sinon.spy(destAccount, 'deposit');
+
+srcAccount.transferTo(250, 'dkk', destAccount);
+```
+
+---
+
+```js
+expect.use(require('unexpected-sinon'));
+
+expect([srcAccount.withdraw, destAccount.deposit],
+       'to have calls satisfying', [
+  { spy: srcAccount.withdraw, args: [ { amount: 250, currency: 'dkk' } ]},
+  { spy: destAccount.deposit, args: [ { amount: 250, currency: 'dkk' }  ] }
+]);
+```
+
+---
+
 ```output
-Unknown assertion 'to not be', did you mean: 'not to be'
+expected [ withdraw, deposit ] to have calls satisfying
+[
+  { spy: withdraw, args: [ { amount: 250, currency: 'dkk' } ] },
+  { spy: deposit, args: [ { amount: 250, currency: 'dkk' } ] }
+]
+ 
+[
+  withdraw(
+    250 // should equal { amount: 250, currency: 'dkk' }
+  ) at Account.that.transferTo (evalmachine.<anonymous>:11:10)
+    
+  deposit(
+    250 // should equal { amount: 250, currency: 'dkk' }
+  ) at Account.that.transferTo (evalmachine.<anonymous>:12:24)
+]
 ```
 
 
 <!--
 
-* Async assertions with composability
-* Colors in the console and the browser from mocha v2.3.0
 * extensibily - everything in unexpected is build from the same tool provided to
 you
 * assertions scoped by type

@@ -27,10 +27,12 @@
     "express": "~2.5.9",
     "lodash": "^3.10.1",
     "mustache": "~0.7.2",
+    "sinon": "1.16.1",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.1",
-    "unexpected": "9.11.1",
-    "unexpected-markdown": "^1.1.2"
+    "unexpected": "9.13.0",
+    "unexpected-markdown": "^1.1.2",
+    "unexpected-sinon": "7.2.1"
   },
   "devDependencies": {
     "grunt-contrib-qunit": "~0.5.2",
