@@ -163,6 +163,20 @@ to equal Buffer([0x77, 0x68, 0x61, 0x74, 0x3F])
 
 Note: notice that we just use 'to equal'.
 
+---
+
+Generally we try to be as helpful as possible:
+
+```js
+expect('Hello ugly world!', 'not to match', /ugly/);
+```
+
+```output
+expected 'Hello ugly world!' not to match /ugly/
+ 
+Hello ugly world!
+```
+
 ===
 
 ## Invalidate best practices
@@ -273,6 +287,14 @@ it ('produces the correct png output', function () {
 http://unexpected.js.org/unexpected-stream/
 
 Note: show some async output http://unexpected.js.org/unexpected-stream/assertions/array/when-piped-through/
+
+===
+
+## Extensible from the ground up
+
+---
+
+TODO addAssertion, addType, addStyle
 
 ===
 
