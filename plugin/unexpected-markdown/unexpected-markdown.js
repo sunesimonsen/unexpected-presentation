@@ -115,32 +115,15 @@
     }
 
     /**
-     * Helper function for constructing a markdown slide.
-     */
-    function createMarkdownSlide( content, options ) {
-
-        options = getSlidifyOptions( options );
-
-        var notesMatch = content.split( new RegExp( options.notesSeparator, 'mgi' ) );
-
-        if( notesMatch.length === 2 ) {
-            content = notesMatch[0] + '<aside class="notes" data-unexpected-markdown>' + notesMatch[1].trim() + '</aside>';
-        }
-
-        return '<script type="text/template">' + content + '</script>';
-
-    }
-
-    /**
      * Parses a data string into multiple slides based
      * on the passed in separator arguments.
      */
     function slidify( markdown, options, target ) {
         options = getSlidifyOptions( options );
 
-      var noteRegex = new RegExp( options.notesSeparator + '(.*?)\n', 'mg' );
+        var noteRegex = new RegExp( options.notesSeparator + '([^]*?)\n\n', 'mg' );
         markdown = markdown.replace(noteRegex, function ($0, $1) {
-            return '<aside class="notes">' + $1.trim() + '</aside>\n\n';
+            return '<aside class="notes">' + $1.trim() + '</aside>\n\n\n';
         });
 
         markdown = markdown.replace(new RegExp(options.separator, 'mg'), '<!-- unexpected-markdown-slide -->\n');
