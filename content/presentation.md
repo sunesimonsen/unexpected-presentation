@@ -86,7 +86,7 @@ Unknown assertion 'to not be', did you mean: 'not to be'
 ---
 
 ```js
-function Person(firstName, lastName) {
+function Person() {
   this.names = Array.prototype.slice.call(arguments);
   Object.defineProperty(this, 'fullName', {
     get: function () {
@@ -107,12 +107,12 @@ expect(sune, 'to satisfy', { fullName: 'Simonsen, Sune Sloth' });
 ```output
 expected Person({ names: [ 'Sune', 'Sloth', 'Simonsen' ] })
 to satisfy { fullName: 'Simonsen, Sune Sloth' }
- 
+
 Person({
   names: [ 'Sune', 'Sloth', 'Simonsen' ],
   fullName: 'Sune Sloth Simonsen' // should equal 'Simonsen, Sune Sloth'
-                                  // - Sune Sloth Simonsen
-                                  // + Simonsen, Sune Sloth
+                                  // -Sune Sloth Simonsen
+                                  // +Simonsen, Sune Sloth
 })
 ```
 
@@ -173,13 +173,14 @@ expect('Hello ugly world!', 'not to match', /ugly/);
 
 ```output
 expected 'Hello ugly world!' not to match /ugly/
- 
+
 Hello ugly world!
+      ^^^^
 ```
 
 ===
 
-## Invalidate best practices
+## Invalidates best practices
 
 ---
 
@@ -191,57 +192,47 @@ Hello ugly world!
 > A single assert per unit test is a great way to test the reader's ability to
 > scroll up and down.
 
+
 Note: Not everyone agrees
 
 ---
 
 > A test should be concise and readable.
 
----
-
-Assert on sub-trees of a object hierarchy:
-
-```js
-var sune = { names: ['Sune', 'Simonsen'], gender: 'male' };
-expect(sune, 'to satisfy', { names: ['Sune', 'Simonsen'], age: 35 });
-```
-
-```output
-expected { name: 'Sune Simonsen', gender: 'male' }
-to satisfy { name: 'Sune Simonsen', age: 35 }
-
-{
-  names: ['Sune', 'Simonsen'],
-  gender: 'male',
-  age: undefined // should equal 35
-}
-```
-
-Note: we can state multiple requirements for an object
-Note: notice that is no requirement for gender
 
 ---
 
 Match your object hierarchy against a specification:
 
 ```js
-expect({ name: 'Sune Simonsen', gender: 'mail', age: 35 }, 'to satisfy', {
-  name: /.+/, age: expect.it('to be positive'), gender: /female|male/
+var sune = { name: 'Sune', gender: 'mail', age: 35, children: 2 };
+
+expect(sune, 'to satisfy', {
+  name: /.+/,
+  age: expect.it('to be positive'),
+  gender: /female|male/
 });
 ```
 
-```output
-expected { name: 'Sune Simonsen', gender: 'male' }
-to satisfy { name: 'Sune Simonsen', age: 35 }
+Note: we can state multiple requirements for an object.
 
-{
-  name: 'Sune Simonsen',
-  gender: 'male',
-  age: undefined // should equal 35
-}
-```
+Note: notice that is no requirement for the `children` property.
 
 Note: this of cause nests arbitrarily.
+
+---
+
+```output
+expected { name: 'Sune', gender: 'mail', age: 35, children: 2 }
+to satisfy { name: /.+/, age: expect.it('to be positive'), gender: /female|male/ }
+
+{
+  name: 'Sune',
+  gender: 'mail', // should match /female|male/
+  age: 35,
+  children: 2
+}
+```
 
 ===
 
@@ -294,7 +285,53 @@ Note: show some async output http://unexpected.js.org/unexpected-stream/assertio
 
 ---
 
-TODO addAssertion, addType, addStyle
+```js
+var a = [1, 2, 3];
+
+expect(a, 'to equal', [].concat(a).sort());
+```
+
+---
+
+```js
+expect.addAssertion('array', 'to be sorted', function (expect, arr, cmp) {
+  expect(arr, 'to equal', [].concat(arr).sort(cmp));
+});
+```
+
+---
+
+```js
+expect([1, 2, 3], 'to be sorted');
+expect([3, 2, 1], 'to be sorted', function (a, b) {
+  return b - a;
+});
+```
+
+---
+
+```js
+expect([2, 1, 3], 'to be sorted');
+```
+
+```output
+expected [ 2, 1, 3 ] to be sorted
+
+[
+  2, // should equal 1
+  1, // should equal 2
+  3
+]
+```
+
+Note: Notice how I didn't specify how the output should be. It is of cause very
+possible to make completely custom output, but it is usually not necessary.
+
+---
+
+#### Almost anything is possible
+
+Create plugins that extends unexpected with new types, assertions and styles.
 
 ===
 
@@ -351,12 +388,12 @@ expected [ withdraw, deposit ] to have calls satisfying
   { spy: withdraw, args: [ { amount: 250, currency: 'dkk' } ] },
   { spy: deposit, args: [ { amount: 250, currency: 'dkk' } ] }
 ]
- 
+
 [
   withdraw(
     250 // should equal { amount: 250, currency: 'dkk' }
   ) at Account.that.transferTo (evalmachine.<anonymous>:11:10)
-    
+
   deposit(
     250 // should equal { amount: 250, currency: 'dkk' }
   ) at Account.that.transferTo (evalmachine.<anonymous>:12:24)
