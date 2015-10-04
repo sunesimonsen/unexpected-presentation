@@ -288,9 +288,9 @@ Note: show some async output http://unexpected.js.org/unexpected-stream/assertio
 ---
 
 ```js
-var a = [1, 2, 3];
+var arr = [1, 2, 3];
 
-expect(a, 'to equal', [].concat(a).sort());
+expect(arr, 'to equal', [].concat(arr).sort());
 ```
 
 ---
@@ -333,7 +333,7 @@ possible to make completely custom output, but it is usually not necessary.
 
 #### Almost anything is possible
 
-Create plugins that extends unexpected with new types, assertions and styles.
+Create plugins that extends unexpected with new types, assertions, styles and themes.
 
 ===
 
