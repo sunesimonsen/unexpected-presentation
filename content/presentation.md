@@ -35,12 +35,14 @@ http://unexpected.js.org
 
 ## Syntax matters
 
-before_software_can_be_reusable_it_first_has_to_be_usable<br>
-before.software.can.be.reusable.it.first.has.to.be.usable<br>
-beforeSoftwareCanBeReusableItFirstHasToBeUsable<br>
-Before software can be reusable it first has to be usable.
+<small>
+programs_should_be_written_for_people_to_read_and_only_incidentally_for_machines_to_execute<br>
+programs.should.be.written.for.people.to.read.and.only.incidentally.for.machines.to.execute<br>
+programsShouldBeWrittenForPeopleToReadAndOnlyIncidentallyForMachinesToExecute<br>
+Programs should be written for people to read, and only incidentally for machines to execute. 
+</small>
 
-– Ralph Johnson.
+— Abelson and Sussman
 
 Note: let's just get the syntax out of the way before we are get started.
 
