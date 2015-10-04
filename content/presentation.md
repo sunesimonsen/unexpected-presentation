@@ -287,6 +287,10 @@ Note: show some async output http://unexpected.js.org/unexpected-stream/assertio
 
 ---
 
+### Adding assertions
+
+---
+
 ```js
 var arr = [1, 2, 3];
 
@@ -328,6 +332,51 @@ expected [ 2, 1, 3 ] to be sorted
 
 Note: Notice how I didn't specify how the output should be. It is of cause very
 possible to make completely custom output, but it is usually not necessary.
+
+---
+
+### Adding types
+
+---
+
+```js
+var moment = require('moment');
+expect(moment(31337), 'to equal', moment(1337));
+```
+
+---
+
+```output
+todo
+```
+
+---
+
+```js
+expect.addType({
+  name: 'moment',
+  base: 'object',
+  identify: function (v) { return v && moment.isMoment(v); },
+  inspect: function (v, depth, output) {
+      output.jsFunctionName('moment').text('(')
+            .jsPrimitive(v.toISOString()).text(')');
+  },
+  equal: function (a, b) { return a.isSame(b); },
+  diff: function (actual, expected, output, diff) {
+      return diff(actual.toISOString(), expected.toISOString());
+  }
+});
+```
+
+---
+
+```js
+expect(moment(31337), 'to equal', moment(1337));
+```
+
+```output
+todo
+```
 
 ---
 
