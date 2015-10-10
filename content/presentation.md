@@ -1,35 +1,52 @@
 ## Unexpected
 
+#### The extensible assertion library
+
+Note: I happily take questing during the presentation
+
 ---
 
 Started in 2013 as an experiment.
+
+Note: Unexpected started at One.com. At the time we were using expect.js. A
+former colleague of mine, Morten Siebuhr, tried to use expect.js for performance
+testing, but he concluded that is was way too slow. So I tried to investigate what
+was going on, and found out that each `expect` would create 84 assertion
+instances. I though I could do a better job. That was the birth of unexpected.
 
 Developed heavily ever since.
 
 ---
 
-Used by One.com from v1.0.4 and is used for all JavaScript testing now.
+Used by One.com from v1.0.4<br>
+and is used for all JavaScript testing now.
+
+Note: Andreas Lind of AssetGraph fame quickly endorsed the project and started
+contributing, if it wasn't for him the project would never have left the ground.
+
+Note: We just released v10.
 
 ---
 
-Starting to be used by other companies.
+Unexpected is starting to be used by other companies.
 
 ---
 
-A small by very active and helpful community.
+A small but very active and helpful community.
 
-Meet us on [Gitter](https://gitter.im/unexpectedjs/unexpected) or
-[Github](https://github.com/unexpectedjs/unexpected).
-
----
-
-Many plugins that cover most functionality.
+Find [Gitter](https://gitter.im/unexpectedjs/unexpected) and
+[Github](https://github.com/unexpectedjs/unexpected) links on
+[http://unexpected.js.org](http://unexpected.js.org).
 
 ---
 
 We have great documentation!
 
 http://unexpected.js.org
+
+---
+
+Many plugins that cover most functionality.
 
 ===
 
@@ -163,7 +180,7 @@ to equal Buffer([0x77, 0x68, 0x61, 0x74, 0x3F])
 +77 68 61 74 3F                                   │what?│
 ```
 
-Note: notice that we just use 'to equal'.
+Note: notice that we just used 'to equal'.
 
 ---
 
