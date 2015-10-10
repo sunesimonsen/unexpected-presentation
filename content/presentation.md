@@ -2,8 +2,6 @@
 
 #### The extensible assertion library
 
-Note: I happily take questing during the presentation
-
 ---
 
 Started in 2013 as an experiment.
@@ -38,7 +36,7 @@ Find [Gitter](https://gitter.im/unexpectedjs/unexpected) and
 [Github](https://github.com/unexpectedjs/unexpected) links on
 [http://unexpected.js.org](http://unexpected.js.org).
 
-Note: daily activity, get your questions answered immediately.
+Note: Daily activity, get your questions answered immediately.
 
 ---
 
@@ -104,8 +102,8 @@ Unknown assertion 'to not be', did you mean: 'not to be'
 
 ## Context is important
 
-Note: The context of an error is really important, you don't was to get an error
-stating that true was not equal false.
+Note: The context of an error is really important, you don't want to get an
+error just stating that true was not equal false.
 
 ---
 
@@ -146,7 +144,7 @@ Person({
 
 ## Being precise makes a difference
 
-Note: We try do make our error messages as descriptive as possible.
+Note: We try to make our error messages as descriptive as possible.
 
 ---
 

@@ -48,7 +48,7 @@ var RevealNotes = (function() {
 		function post() {
 
 			var slideElement = Reveal.getCurrentSlide(),
-				notesElement = slideElement.querySelector( 'aside.notes' );
+				notesElements = slideElement.querySelectorAll( 'aside.notes' );
 
 			var messageData = {
 				namespace: 'reveal-notes',
@@ -64,9 +64,16 @@ var RevealNotes = (function() {
 			}
 
 			// Look for notes defined in an aside element
-			if( notesElement ) {
-				messageData.notes = notesElement.innerHTML;
-				messageData.markdown = typeof notesElement.getAttribute( 'data-markdown' ) === 'string';
+			if( notesElements.length ) {
+        var notes = Array.prototype.map.call(notesElements, function (notesElement) {
+          return notesElement.innerHTML;
+        }).join('<br><br>');
+        var markdown = Array.prototype.some.call(notesElements, function (notesElement) {
+          return typeof notesElement.getAttribute( 'data-markdown' ) === 'string';
+        });
+
+				messageData.notes = notes;
+				messageData.markdown = markdown;
 			}
 
 			notesPopup.postMessage( JSON.stringify( messageData ), '*' );
