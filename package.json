@@ -31,9 +31,9 @@
     "sinon": "1.16.1",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.1",
-    "unexpected": "9.13.0",
+    "unexpected": "^10.0.1",
     "unexpected-markdown": "^1.2.0",
-    "unexpected-sinon": "7.2.1"
+    "unexpected-sinon": "^8.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.0",

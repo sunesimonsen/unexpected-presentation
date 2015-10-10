@@ -14,7 +14,12 @@ app.post('/', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     var markdown = new UnexpectedMarkdown(req.body.markdown);
     markdown.toHtml({ preferredWidth: 75 }, function (err, html) {
+      if (err) {
+        console.log(err);
+        res.send(err.message);
+      } else {
         res.send(html);
+      }
     });
 });
 
