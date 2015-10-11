@@ -7,7 +7,8 @@
   "main": "js/reveal.js",
   "scripts": {
     "test": "grunt test",
-    "start": "UNEXPECTED_DEPTH=4 node plugin/unexpected-markdown/server.js"
+    "test-presentation": "mocha --compilers md:unexpected-markdown content/presentation.md --require bootstrap-unexpected-markdown.js",
+    "start": "node plugin/unexpected-markdown/server.js"
   },
   "author": {
     "name": "Hakim El Hattab",
@@ -32,7 +33,7 @@
     "socket.io": "~0.9.16",
     "underscore": "~1.5.1",
     "unexpected": "^10.0.1",
-    "unexpected-markdown": "^1.2.0",
+    "unexpected-markdown": "^1.3.0",
     "unexpected-sinon": "^8.0.0"
   },
   "devDependencies": {

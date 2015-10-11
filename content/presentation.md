@@ -256,12 +256,16 @@ Note: this of cause nests arbitrarily.
 ---
 
 ```output
-expected { name: 'Sune', gender: 'mail', age: 35, children: 2 }
-to satisfy { name: /.+/, age: expect.it('to be positive'), gender: /female|male/ }
+expected { name: 'Sune', gender: 'mail', age: 35, children: 2 } to satisfy
+{
+  name: /.+/,
+  age: expect.it('to be positive'),
+  gender: /male|female/
+}
 
 {
   name: 'Sune',
-  gender: 'mail', // should match /female|male/
+  gender: 'mail', // should match /male|female/
   age: 35,
   children: 2
 }
@@ -390,7 +394,66 @@ expect(moment(31337), 'to equal', moment(1337));
 ---
 
 ```output
-todo
+expected
+Moment({
+  _isAMomentObject: true,
+  _i: 31337,
+  _isUTC: false,
+  _locale: Locale({
+    _ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+    ordinal: function (number) {
+      var b = number % 10,
+        output = (toInt(number % 100 / 10) === 1) ? 'th' :
+        (b === 1) ? 'st' :
+        (b === 2) ? 'nd' :
+        (b === 3) ? 'rd' : 'th';
+      return number + output;
+    },
+    _abbr: 'en',
+    _ordinalParseLenient: /\d{1,2}(th|st|nd|rd)|\d{1,2}/
+  }),
+  _d: new Date('Thu, 01 Jan 1970 00:00:31.337 GMT')
+})
+to equal
+Moment({
+  _isAMomentObject: true,
+  _i: 1337,
+  _isUTC: false,
+  _locale: Locale({
+    _ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+    ordinal: function (number) {
+      var b = number % 10,
+        output = (toInt(number % 100 / 10) === 1) ? 'th' :
+        (b === 1) ? 'st' :
+        (b === 2) ? 'nd' :
+        (b === 3) ? 'rd' : 'th';
+      return number + output;
+    },
+    _abbr: 'en',
+    _ordinalParseLenient: /\d{1,2}(th|st|nd|rd)|\d{1,2}/
+  }),
+  _d: new Date('Thu, 01 Jan 1970 00:00:01.337 GMT')
+})
+
+Moment({
+  _isAMomentObject: true,
+  _i: 31337, // should equal 1337
+  _isUTC: false,
+  _locale: Locale({
+    _ordinalParse: /\d{1,2}(th|st|nd|rd)/,
+    ordinal: function (number) {
+      var b = number % 10,
+        output = (toInt(number % 100 / 10) === 1) ? 'th' :
+        (b === 1) ? 'st' :
+        (b === 2) ? 'nd' :
+        (b === 3) ? 'rd' : 'th';
+      return number + output;
+    },
+    _abbr: 'en',
+    _ordinalParseLenient: /\d{1,2}(th|st|nd|rd)|\d{1,2}/
+  }),
+  _d: new Date('Thu, 01 Jan 1970 00:00:31.337 GMT') // should equal new Date('Thu, 01 Jan 1970 00:00:01.337 GMT')
+})
 ```
 
 ---
@@ -418,7 +481,11 @@ expect(moment(31337), 'to equal', moment(1337));
 ```
 
 ```output
-todo
+expected moment(1970-01-01T00:00:31.337Z)
+to equal moment(1970-01-01T00:00:01.337Z)
+
+-1970-01-01T00:00:31.337Z
++1970-01-01T00:00:01.337Z
 ```
 
 ---
@@ -496,10 +563,9 @@ expected [ withdraw, deposit ] to have calls satisfying
 [
   withdraw(
     250 // should equal { amount: 250, currency: 'dkk' }
-  ) at Account.that.transferTo (evalmachine.<anonymous>:11:10)
-
+  ) at Account.that.transferTo (content/presentation.md:523:10)
   deposit(
     250 // should equal { amount: 250, currency: 'dkk' }
-  ) at Account.that.transferTo (evalmachine.<anonymous>:12:24)
+  ) at Account.that.transferTo (content/presentation.md:524:24)
 ]
 ```

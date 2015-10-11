@@ -1,3 +1,4 @@
+require('../../bootstrap-unexpected-markdown');
 var UnexpectedMarkdown = require('unexpected-markdown');
 var express = require('express');
 var bodyParser = require('body-parser');
