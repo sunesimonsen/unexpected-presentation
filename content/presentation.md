@@ -2,27 +2,29 @@
 
 #### The extensible assertion library
 
+Note: What is Unexpected? Unexpected is an assertion library like Chai, expect.js or should.js.
+But is also very different as you will see during the presentation.
+
 ---
 
 Started in 2013 as an experiment.
 
-Developed activily ever since.
-
 Note: Unexpected started at One.com. At the time we were using expect.js. A
-former colleague of mine, Morten Siebuhr, tried to use expect.js for performance
-testing, but he concluded that is was way too slow. So I tried to investigate what
-was going on, and found out that each `expect` would create 84 assertion
-instances. I though I could do a better job. That was the start of unexpected.
+former colleague of mine, Morten Siebuhr, tried to use expect.js for a test
+suite with several thousands assertions and concluded that is was way too slow.
+I tried to investigate what was going on, and found out that each `expect` would
+create 84 assertion instances. I though I could do a better job. That was
+the start of Unexpected.
 
 ---
 
 Used by One.com from v1.0.4<br>
 and is used for all JavaScript testing now.
 
-Note: Andreas Lind of AssetGraph fame quickly endorsed the project and started
+Note: Andreas Lind of AssetGraph fame, quickly endorsed the project and started
 contributing, if it wasn't for him the project would never have left the ground.
 
-Note: The current version is v10
+Note: The current version is v10.
 
 ---
 
@@ -102,8 +104,7 @@ Unknown assertion 'to not be', did you mean: 'not to be'
 
 ## Context is important
 
-Note: The context of an error is really important, you don't want to get an
-error just stating that true was not equal false.
+Note: One important theme of Unexpected is to show as much relevant information as possible.
 
 ---
 
@@ -139,6 +140,7 @@ Person({
                                   // +Simonsen, Sune Sloth
 })
 ```
+Note: you will have all the information you need without even opening the test.
 
 ===
 
@@ -175,7 +177,9 @@ Note: We provide diffs for most things.
 We even diff buffers:
 
 ```js
-expect(new Buffer('wat?', 'utf-8'), 'to equal', new Buffer('what?', 'utf-8'));
+expect(new Buffer('wat?', 'utf-8'),
+       'to equal',
+       new Buffer('what?', 'utf-8'));
 ```
 
 ```output
@@ -207,7 +211,7 @@ Hello ugly world!
 
 ## Invalidates best practices
 
-Note: Unexpected will change the way you write tests.
+Note: I like to think that Unexpected changes the way you write tests.
 
 Note: People generally has strong opinions about testing.
 
@@ -239,7 +243,7 @@ var sune = { name: 'Sune', gender: 'mail', age: 35, children: 2 };
 expect(sune, 'to satisfy', {
   name: /.+/,
   age: expect.it('to be positive'),
-  gender: /female|male/
+  gender: /male|female/
 });
 ```
 
@@ -309,7 +313,7 @@ it ('produces the correct png output', function () {
 
 http://unexpected.js.org/unexpected-stream/
 
-Note: show some async output http://unexpected.js.org/unexpected-stream/assertions/array/when-piped-through/
+Note: this is where we left the competition in the dust :-)
 
 ===
 
@@ -422,6 +426,10 @@ todo
 #### Almost anything is possible
 
 Create plugins that extends unexpected with new types, assertions, styles and themes.
+
+===
+
+## Questions
 
 ===
 
