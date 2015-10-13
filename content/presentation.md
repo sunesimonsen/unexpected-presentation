@@ -21,8 +21,9 @@ the start of Unexpected.
 Used by One.com from v1.0.4<br>
 and is used for all JavaScript testing now.
 
-Note: Andreas Lind of AssetGraph fame, quickly endorsed the project and started
-contributing, if it wasn't for him the project would never have left the ground.
+Note: Andreas Lind known for AssetGraph, quickly endorsed the project and
+started contributing, if it wasn't for him the project would never have left the
+ground.
 
 Note: The current version is v10.
 
