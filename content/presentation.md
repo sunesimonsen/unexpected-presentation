@@ -496,20 +496,7 @@ Create plugins that extends unexpected with new types, assertions, styles and th
 
 ===
 
-## Questions
-
-===
-
-## The end
-
-Stickers for everybody :-)
-
-===
-
-## Plugins
-
----
-
+## unexpected-sinon
 ### Testing with fakes
 
 ---
@@ -563,9 +550,19 @@ expected [ withdraw, deposit ] to have calls satisfying
 [
   withdraw(
     250 // should equal { amount: 250, currency: 'dkk' }
-  ) at Account.that.transferTo (content/presentation.md:523:10)
+  ) at Account.that.transferTo (content/presentation.md:510:10)
   deposit(
     250 // should equal { amount: 250, currency: 'dkk' }
-  ) at Account.that.transferTo (content/presentation.md:524:24)
+  ) at Account.that.transferTo (content/presentation.md:511:24)
 ]
 ```
+
+===
+
+## Questions
+
+===
+
+## The end
+
+Stickers for everybody :-)
