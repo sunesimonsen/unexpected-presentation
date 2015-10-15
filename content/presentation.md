@@ -23,9 +23,7 @@ and is used for all JavaScript testing now.
 
 Note: Andreas Lind known for AssetGraph, quickly endorsed the project and
 started contributing, if it wasn't for him the project would never have left the
-ground.
-
-Note: The current version is v10.
+ground. Today it is a split effort between Andreas and me.
 
 ---
 
@@ -141,6 +139,7 @@ Person({
                                   // +Simonsen, Sune Sloth
 })
 ```
+
 Note: you will have all the information you need without even opening the test.
 
 ===
@@ -383,7 +382,7 @@ Note: The provided diff will state why the array is not sorted.
 
 ### Adding types
 
-Note: this would be very powerful if we could not provide new types.
+Note: this wouldn't be very powerful if we could not provide new types.
 
 ---
 
