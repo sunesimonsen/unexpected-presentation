@@ -323,7 +323,7 @@ Note: this is where we left the competition in the dust :-)
 
 ## Extensible from the ground up
 
-Note: Unexpected it build from an extensible core and all the types and
+Note: Unexpected is build from an extensible core and all the types and
 assertion provided by core, is build on the same API's that will be available to
 you as a plugin developer.
 
